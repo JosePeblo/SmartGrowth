@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.min.css">
+    <link rel="stylesheet" href="/styles/style.min.css">
     <title>Smart Grow</title>
 </head>
 <body class="bg-secondary text-primary font-geologica">
@@ -28,13 +28,23 @@
                 <a href="#" class="hover:-translate-y-1 transition-all ease-linear w-full phone:pt-2">ABOUT</a>
                 <a href="#" class="hover:-translate-y-1 transition-all ease-linear w-full phone:pt-2">PRODUCT</a>
                 <a href="#" class="hover:-translate-y-1 transition-all ease-linear w-full phone:pt-2">CONTACT</a>
-
-                <a href="#" class="bg-btn-secondary px-6 py-3 rounded-xl hover:-translate-y-1 transition-all ease-linear phone:w-full text-center">
+                
+                <% if(!user) { %>
+                <a href="/auth/login" class="bg-btn-secondary px-6 py-3 rounded-xl hover:-translate-y-1 transition-all ease-linear phone:w-full text-center">
                     Login
                 </a>
-                <a href="#" class="bg-btn-primary px-6 py-3 rounded-xl hover:-translate-y-1 transition-all ease-linear phone:w-full text-center">
+                <a href="/auth/signup" class="bg-btn-primary px-6 py-3 rounded-xl hover:-translate-y-1 transition-all ease-linear phone:w-full text-center">
                     Signup
                 </a>
+                <% } else { %>
+                <a href="/dashboard" class="bg-btn-primary px-6 py-3 rounded-xl hover:-translate-y-1 transition-all ease-linear phone:w-full text-center">
+                    System
+                </a>
+                <a href="/auth/logout" class="bg-btn-secondary px-6 py-3 rounded-xl hover:-translate-y-1 transition-all ease-linear phone:w-full text-center">
+                    Logout
+                </a>
+                <% } %>
+
             </div>
             
         </div>
@@ -48,7 +58,7 @@
             </h2>
             <br>
             <h3 class="text-2xl">
-                Automation for your green house
+                Automation for your <span class="text-accent font-bold">green</span> house
             </h3>
         </div>
         

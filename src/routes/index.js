@@ -10,5 +10,5 @@ module.exports.initRoutes = (app) => {
     app.use('/', homeRoutes);
     app.use('/auth', authRoutes);
     app.use('/socials', socialRoutes);
-    app.use('/greenhouses', systemRoutes);
+    app.use('/dashboard', systemRoutes);
 }

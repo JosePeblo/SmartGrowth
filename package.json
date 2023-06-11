@@ -4,7 +4,8 @@
   "main": "tailwind.config.js",
   "scripts": {
     "tw": "tailwindcss -i ./src/pages/styles/input.css -o ./src/pages/styles/style.min.css --watch",
-    "dist": "tailwindcss -i ./src/pages/styles/input.css -o ./src/pages/styles/style.min.css --minify"
+    "dist": "tailwindcss -i ./src/pages/styles/input.css -o ./src/pages/styles/style.min.css --minify",
+    "dev": "concurrently \"nodemon ./src/index.js\" \"tailwindcss -i ./src/pages/styles/input.css -o ./src/pages/styles/style.min.css --watch\""
   },
   "keywords": [],
   "author": "",
@@ -15,7 +16,8 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "concurrently": "^8.1.0",

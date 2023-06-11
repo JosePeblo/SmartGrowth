@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/style.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>System</title>
+</head>
+<body class="bg-secondary text-primary font-geologica">
+    
+    <nav class="w-60 phone:w-20 fixed top-0 left-0 transition-all ease-linear h-[100vh] bg-primary bg-opacity-10 pt-4 shadow-xl z-20">
+        <div class="flex items-center gap-2 w-full px-4 pb-4">
+            <img class="w-10 phone:w-20 rounded-full" src="https://unsplash.it/200/200" alt="logo">
+            <span class="line-clamp-3 phone:hidden">% User %</span>
+        </div>
+        <div class="flex items-center gap-2 w-full px-4 pb-4">
+            <span class="w-10 h-10 phone:w-12 phone:h-12 rounded-full bg-btn-primary text-secondary flex items-center justify-center text-xl">
+                <i class="bx bxs-plus-square"></i>
+            </span>
+            <span class="line-clamp-3 phone:hidden">New</span>
+        </div>
+        <div class="flex items-center gap-2 w-full px-4 pb-4">
+            <span class="w-10 h-10 phone:w-12 phone:h-12 rounded-full bg-btn-primary text-secondary flex items-center justify-center text-xl">
+                <i class="bx bx-arrow-from-left"></i>
+            </span>
+            <span class="line-clamp-3 phone:hidden">a</span>
+        </div>
+        <div class="flex items-center gap-2 w-full px-4 pb-4">
+            <span class="w-10 phone:w-20 h-10 phone:h-20 rounded-full bg-btn-primary text-secondary flex items-center justify-center text-xl">
+                <i class="bx bxs-log-out"></i>
+            </span>
+            <span class="line-clamp-3 phone:hidden">Logout</span>
+        </div>
+    </nav>
+    
+    <main class="relative left-60 w-[calc(100%-15rem)] phone:left-20 phone:w-[calc(100%-5rem)]">
+        <div>
+            <img class="w-full h-40 object-cover" src="https://unsplash.it/1200/160" alt="logo">
+        </div>
+        
+        <div class="flex w-full items-start p-10 phone:p-5 tablet:flex-col">
+            <div class="flex flex-col gap-5 justify-center w-[30%] tablet:w-full">
+                <p class="flex items-center text-4xl">
+                    <i class="bx bxs-thermometer"></i>
+                    <span class="text-xl">
+                        % Temp % °C
+                    </span>
+                </p>
+                <p class="flex items-center text-4xl">
+                    <i class="bx bx-droplet"></i>
+                    <span class="text-xl">
+                        % AirHumidity % %
+                    </span>
+                </p>
+                <p class="flex items-center text-4xl">
+                    <i class="bx bx-water" ></i>
+                    <span class="text-xl">
+                        % SoilHumidity % %
+                    </span>
+                </p>
+                <a class="bg-btn-primary py-2 px-5 rounded-full text-secondary">
+                    <!-- Only  -->
+                    fans
+                </a>
+                <a class="bg-btn-primary py-2 px-5 rounded-full text-secondary">
+                    <!-- Only  -->
+                    pumps
+                </a>
+                
+            </div>
+            <div class="w-[70%] tablet:w-full h-full">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+            
+        
+        <script>
+            const ctx = document.getElementById('myChart');
+            
+            Chart.defaults.font.size = 16;
+            new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [
+                    {
+                        label: 'Temperature',
+                        data: [12, 19, 3, 5, 2, 3],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Air Humidity',
+                        data: [10, 21, 5, 7, 1, 9],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Soil Humidity',
+                        data: [30, 16, 2, 9, 22, 18],
+                        borderWidth: 1
+                    }
+                ]
+              },
+              options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: 'Geologica'
+                            }
+                        }
+                    },
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  },
+                  x: {
+                    ticks: {
+                        maxTicksLimit: 4 // labels.length / 2
+                    }
+                  }
+                },
+                onResize: () => {console.log('mundo')},
+                // mantainAspectRatio: false,
+                aspectRatio: 2
+              }
+            });
+          </script>
+    </main>
+</body>
+</html>
