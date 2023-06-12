@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const UserGreenhouse = require("../models/userGreenhouse");
 const { comparePasswords } = require("../utils/password");
 
 /** @type {import("express").RequestHandler} */
@@ -7,8 +8,9 @@ exports.login = (req, res) => {
 }
 
 /** @type {import("express").RequestHandler} */
-exports.logUser = (req, res) => {
+exports.logUser = async (req, res) => {
     const { email, password } = req.body;
+    
     User.getByEmail(email, (err, user) => {
         // TODO handle database error with 500 page
         if(!user[0]){
@@ -20,8 +22,11 @@ exports.logUser = (req, res) => {
             return
         }
         req.session.user = { email: user[0].email, name: user[0].name };
-        req.session.save(err => {
-            res.redirect('/');
+        UserGreenhouse.getUserGreenhouses(email, (err, rows) => {
+            req.session.greenhouses = rows;
+            req.session.save(err => {
+                res.redirect('/dashboard');
+            });
         });
 
     })
@@ -33,10 +38,10 @@ exports.signup = (req, res) => {
 }
 
 /** @type {import("express").RequestHandler} */
-exports.signUser = (req, res) => {
+exports.signUser = async (req, res) => {
     const { email, password, name } = req.body;
     const usr = new User(email, name, password);
-    usr.save();
+    await usr.save();
     res.send('Yay');
 }
 

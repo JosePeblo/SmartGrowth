@@ -5,7 +5,8 @@ const HomeController = require('../controllers/home.controller');
 const router = express.Router();
 
 router.get('/', requiresAuth, HomeController.dashboard);
-router.get('/:id', requiresAuth, HomeController.greenHouses)
+router.get('/api', requiresAuth, HomeController.sensorData);
+router.get('/:id', requiresAuth, HomeController.greenHouses);
 // router.post('/');
 
 module.exports = router;

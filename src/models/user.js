@@ -20,10 +20,10 @@ module.exports = class User {
         this.password = password;
     }
 
-    save() {
-        db.run(`INSERT INTO user (email, name, password) VALUES (?,?,?)`,
+    async save() {
+        await db.run(`INSERT INTO user (email, name, password) VALUES (?,?,?)`,
                 [this.email, this.name, hashPassword(this.password)],
-                (err) => { if(err) throw err; });
+);
     }
 
     /**
