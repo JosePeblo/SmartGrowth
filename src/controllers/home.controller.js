@@ -51,3 +51,23 @@ exports.sensorData = (req, res) => {
     });
 
 }
+
+/** @type {import("express").RequestHandler} */
+exports.postSensors = (req, res) => {
+    const { gh_id, humidity, soilhumidity, temperature, fan, waterpump } = req.body;
+    const curtime = new Date();
+    const logs = [
+        new Logs(gh_id, 'humidity', curtime, humidity),
+        new Logs(gh_id, 'soilhumidity', curtime, soilhumidity),
+        new Logs(gh_id, 'temperature', curtime, temperature),
+        new Logs(gh_id, 'fan', curtime, fan),
+        new Logs(gh_id, 'waterpump', curtime, waterpump)
+    ];
+    
+    logs.forEach(lg => {
+        lg.save()
+    });
+    
+    res.send('ok')
+
+}

@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/', requiresAuth, HomeController.dashboard);
 router.get('/api', requiresAuth, HomeController.sensorData);
+router.post('/api',  HomeController.postSensors);
 router.get('/:id', requiresAuth, HomeController.greenHouses);
 // router.post('/');
 

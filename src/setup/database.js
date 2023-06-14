@@ -38,18 +38,44 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
 // });
 
 // db.run(`
-// INSERT INTO user (email, name, password) VALUES 
-// ('test@gmail.mx', 'Test User', 'a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s=')
+// CREATE TABLE logs (
+//     gh_id VARCHAR(36),
+//     senoract VARCHAR(40),
+//     time TIMESTAMP,
+//     reading INTEGER,
+//     PRIMARY KEY (gh_id, senoract, time),
+//     FOREIGN KEY (gh_id) REFERENCES greenhouse (id))
 // `, [], (err) => {
 //     if(err) return console.error(err.message);
 // });
 
-// db.run(`
-// INSERT INTO user (email, name, password) VALUES 
-// ('admin@gmail.mx', 'Admin', 'a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s=')
-// `, [], (err) => {
-//     if(err) return console.error(err.message);
-// });
+db.run(`
+INSERT INTO user (email, name, password) VALUES 
+('alejandro.vl090503@outlook.com', 'Alex', 'BRBai0w1WH5+NJfbV/wCJV8FBXxbg7Ye6/AJ55AHPx0=')
+`, [], (err) => {
+    if(err) return console.error(err.message);
+});
+
+db.run(`
+INSERT INTO user (email, name, password) VALUES 
+('admin@gmail.com', 'Admin', 'a4ayc/80/OGda4BO/1o/V0etpOqiLx1JwB5S3beHW0s=')
+`, [], (err) => {
+    if(err) return console.error(err.message);
+});
+
+db.run(`
+INSERT INTO greenhouse (id, name, photo) VALUES
+('9d0115e0-7723-4afe-86f0-a0866d0bb205', 'Invernadero de tomate', 'https://images.hola.com/imagenes/estar-bien/20210715193045/invernaderos-solares-medio-ambiente/0-976-167/invernadero-nueva-t.jpg')
+`, [], (err) => {
+    if(err) return console.error(err.message);
+});
+
+db.run(`
+INSERT INTO user_greenhouse (greenhouse_id, user_email) VALUES 
+('9d0115e0-7723-4afe-86f0-a0866d0bb205', 'alejandro.vl090503@outlook.com')
+`, [], (err) => {
+    if(err) return console.error(err.message);
+});
 
 // db.run(`
 // INSERT INTO greenhouse (id, name, photo) VALUES
@@ -66,14 +92,6 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
 // });
 
 // db.run(`
-// INSERT INTO greenhouse (id, name, photo) VALUES
-// ('9d0115e0-7723-4afe-86f0-a0866d0bb205', 'Invernadero de tomate', 'https://images.hola.com/imagenes/estar-bien/20210715193045/invernaderos-solares-medio-ambiente/0-976-167/invernadero-nueva-t.jpg')
-// `, [], (err) => {
-//     if(err) return console.error(err.message);
-// });
-
-
-// db.run(`
 // INSERT INTO user_greenhouse (greenhouse_id, user_email) VALUES 
 // ('2ebf8606-a8f1-44a4-8315-063652ad70ec', 'test@gmail.mx')
 // `, [], (err) => {
@@ -86,12 +104,7 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
 // `, [], (err) => {
 //     if(err) return console.error(err.message);
 // });
-// db.run(`
-// INSERT INTO user_greenhouse (greenhouse_id, user_email) VALUES 
-// ('9d0115e0-7723-4afe-86f0-a0866d0bb205', 'admin@gmail.mx')
-// `, [], (err) => {
-//     if(err) return console.error(err.message);
-// });
+
 // db.run(`
 // INSERT INTO user_greenhouse (greenhouse_id, user_email) VALUES 
 // ('2ebf8606-a8f1-44a4-8315-063652ad70ec', 'admin@gmail.mx')
@@ -99,17 +112,6 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
 //     if(err) return console.error(err.message);
 // });
 
-// db.run(`
-// CREATE TABLE logs (
-//     gh_id VARCHAR(36),
-//     senoract VARCHAR(40),
-//     time TIMESTAMP,
-//     reading INTEGER,
-//     PRIMARY KEY (gh_id, senoract, time),
-//     FOREIGN KEY (gh_id) REFERENCES greenhouse (id))
-// `, [], (err) => {
-//     if(err) return console.error(err.message);
-// });
 
 // ==================
 
@@ -170,10 +172,25 @@ const future = new Date('2023-06-12T05:36:45.910Z');
 //     });
 // });
 
+// db.run(`DELETE FROM logs WHERE 1`, [], (err) => {
+//     if(err) return console.error(err.message);
+// });
 
-db.all('select * from logs', [], (err, data) => {
-    console.log(data);
-});
+// db.run(`DELETE FROM user WHERE 1`, [], (err) => {
+//     if(err) return console.error(err.message);
+// });
+
+// db.run(`DELETE FROM greenhouse WHERE 1`, [], (err) => {
+//     if(err) return console.error(err.message);
+// });
+
+// db.run(`DELETE FROM user_greenhouse WHERE 1`, [], (err) => {
+//     if(err) return console.error(err.message);
+// });
+
+// db.all('select * from logs', [], (err, data) => {
+//     console.log(data);
+// });
 
 
 // db.run(``, [], (err) => {

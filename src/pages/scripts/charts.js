@@ -1,10 +1,7 @@
-
-
-
-
-
 (()=>{
-    const ctx = document.getElementById('myChart');
+    const tcx =document.getElementById('temp-chart');
+    const hcx =document.getElementById('humid-chart');
+    const scx =document.getElementById('sohum-chart');
     Chart.defaults.font.size = 16;
 
     const temperature = document.getElementById('temperature');
@@ -21,23 +18,28 @@
     // [1]Air Humidity
     // [2]Soil Humidity
 
-    const updateChart = (chart) => {
+    const updateCharts = (temp, humid) => {
         const id = location.href.split('/').pop();
-        chart.data.labels = [];
-        chart.data.datasets[0].data = [];
-        chart.data.datasets[1].data = [];
-        chart.data.datasets[2].data = [];
+        temp.data.labels = [];
+        humid.data.labels = [];
+        temp.data.datasets[0].data = [];
+        humid.data.datasets[0].data = [];
+        humid.data.datasets[1].data = [];
         fetch(`/dashboard/api?q=${id}`)
         .then(res => res.json())
         .then(res => {
             const keys = Object.keys(res);
             keys.forEach(key => {
-                chart.data.labels.push(new Date(Number(key)).toISOString().split('.')[0].replace('T', ' '));
-                chart.data.datasets[0].data.push(res[key].temperature);
-                chart.data.datasets[1].data.push(res[key].humidity);
-                chart.data.datasets[2].data.push(res[key].soilhumidity);
+                const label = new Date(Number(key)).toISOString().split('.')[0].split('T')[1];
+                temp.data.labels.push(label);
+                humid.data.labels.push(label);
+
+                temp.data.datasets[0].data.push(res[key].temperature);
+                humid.data.datasets[0].data.push(res[key].humidity);
+                humid.data.datasets[1].data.push(res[key].soilhumidity);
             });
-            chart.update();
+            temp.update();
+            humid.update();
             const last = keys.pop();
             temperature.innerText = res[last].temperature + '°C';
             airHumidity.innerText = res[last].humidity + '%';
@@ -61,25 +63,20 @@
         });
     }
 
-    const chart = new Chart(ctx, {
+    // tcx
+    // hcx
+    // scx
+    const tchart = new Chart(tcx, {
         type: 'line',
         data: {
+            zoomEnabled: true,
             labels: [],
             datasets: [
                 {
-                    label: 'Temperature',
+                    label: 'Temperatura',
                     data: [],
-                    borderWidth: 1
-                },
-                {
-                    label: 'Air Humidity',
-                    data: [],
-                    borderWidth: 1
-                },
-                {
-                    label: 'Soil Humidity',
-                    data: [],
-                    borderWidth: 1
+                    borderWidth: 2,
+                    pointRadius: 3
                 }
             ]
         },
@@ -99,8 +96,11 @@
                 },
                 x: {
                     ticks: {
-                        display: false
-                        // maxTicksLimit: 4, // labels.length / 2
+                        font: {
+                            size: 10
+                        },
+                        // display: false
+                        maxTicksLimit: 5, // labels.length / 2
                         // maxRotation: 90,
                         // minRotation: 90
                     }
@@ -111,10 +111,61 @@
         }
     });
 
-    updateChart(chart);
+    const hchart = new Chart(hcx, {
+        type: 'line',
+        data: {
+            zoomEnabled: true,
+            labels: [],
+            datasets: [
+                {
+                    label: 'Humedad del aire',
+                    data: [],
+                    borderWidth: 2,
+                    pointRadius: 3
+                },
+                {
+                    label: 'Humedad del suelo',
+                    data: [],
+                    borderWidth: 2,
+                    pointRadius: 3
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            family: 'Geologica'
+                        }
+                    }
+                },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 10
+                        },
+                        // display: false
+                        maxTicksLimit: 5, // labels.length / 2
+                        // maxRotation: 90,
+                        // minRotation: 90
+                    }
+                }
+            },
+            // mantainAspectRatio: false,
+            aspectRatio: 2
+        }
+    });
+
+    updateCharts(tchart, hchart);
     
     setInterval(() => {
-        updateChart(chart);
+        updateCharts(tchart, hchart);
     },6000)
     
 })()

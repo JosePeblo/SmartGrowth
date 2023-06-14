@@ -33,7 +33,7 @@ module.exports = class Logs {
      * @param {dbCallback} callback 
      */
     static getGreenhouseReadings(gh_id, callback) {
-        db.all(`SELECT senoract, time, reading FROM logs WHERE gh_id == ? ORDER BY time`,[gh_id], callback);
+        db.all(`SELECT senoract, time, reading FROM logs WHERE gh_id == ? ORDER BY time DESC LIMIT 100`,[gh_id], callback);
     }
 }
 
