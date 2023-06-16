@@ -68,6 +68,6 @@ exports.postSensors = (req, res) => {
         lg.save()
     });
     
-    res.send('ok')
+    res.send(req.body)
 
 }

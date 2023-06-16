@@ -100,6 +100,6 @@ while True:
 
     if not fail:
        r = requests.post('http://localhost:3000/dashboard/api', json=message)
-       print(r.text)
+       print(r.json)
        
     time.sleep(3)
